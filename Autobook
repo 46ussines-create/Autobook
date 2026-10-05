@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoBook</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    header p {
+      margin-top: 6px;
+      color: #cbd5e1;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 25px auto;
+      padding: 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .card h2 {
+      margin-bottom: 15px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 16px;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .service {
+      padding: 15px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+
+    .service strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .price {
+      color: #2563eb;
+      font-weight: bold;
+    }
+
+    .success {
+      display: none;
+      background: #dcfce7;
+      color: #166534;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🚗 AutoBook</h1>
+  <p>Онлайн-запись в автосервис</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Записаться на обслуживание</h2>
+
+    <input
+      type="text"
+      id="name"
+      placeholder="Ваше имя"
+    >
+
+    <input
+      type="tel"
+      id="phone"
+      placeholder="Номер телефона"
+    >
+
+    <input
+      type="text"
+      id="car"
+      placeholder="Марка и модель автомобиля"
+    >
+
+    <select id="service">
+      <option value="">Выберите услугу</option>
+      <option value="Диагностика">Диагностика</option>
+      <option value="Замена масла">Замена масла</option>
+      <option value="Ремонт ходовой">Ремонт ходовой</option>
+      <option value="Ремонт двигателя">Ремонт двигателя</option>
+      <option value="Ремонт электрики">Ремонт электрики</option>
+      <option value="Кондиционер">Кондиционер</option>
+    </select>
+
+    <input
+      type="date"
+      id="date"
+    >
+
+    <input
+      type="time"
+      id="time"
+    >
+
+    <button onclick="bookService()">
+      Записаться
+    </button>
+
+    <div class="success" id="success">
+      ✅ Запись успешно создана!
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2>Наши услуги</h2>
+
+    <div class="service">
+      <strong>🔧 Диагностика автомобиля</strong>
+      Проверка основных систем автомобиля
+      <div class="price">от 50 000 сум</div>
+    </div>
+
+    <div class="service">
+      <strong>🛢 Замена масла</strong>
+      Замена масла и фильтра
+      <div class="price">от 80 000 сум</div>
+    </div>
+
+    <div class="service">
+      <strong>🚘 Ходовая часть</strong>
+      Диагностика и ремонт подвески
+      <div class="price">от 100 000 сум</div>
+    </div>
+
+    <div class="service">
+      <strong>⚡ Электрика</strong>
+      Диагностика и ремонт электрооборудования
+      <div class="price">от 100 000 сум</div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  AutoBook © 2026
+</footer>
+
+
+<script>
+
+function bookService() {
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const car = document.getElementById("car").value;
+  const service = document.getElementById("service").value;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+
+  if (!name || !phone || !car || !service || !date || !time) {
+    alert("Пожалуйста, заполните все поля");
+    return;
+  }
+
+  document.getElementById("success").style.display = "block";
+
+  console.log({
+    name: name,
+    phone: phone,
+    car: car,
+    service: service,
+    date: date,
+    time: time
+  });
+}
+
+</script>
+
+</body>
+</html>
