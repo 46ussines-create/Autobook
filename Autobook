@@ -1,235 +1,387 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutoBook</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoBook</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-    body {
-      background: #f4f6f8;
-      color: #222;
-    }
+body {
+    background: #f4f6f8;
+    color: #222;
+}
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+header {
+    background: #111827;
+    color: white;
+    padding: 18px;
+    text-align: center;
+}
 
-    header h1 {
-      font-size: 28px;
-    }
+header h1 {
+    font-size: 25px;
+}
 
-    header p {
-      margin-top: 6px;
-      color: #cbd5e1;
-    }
+header p {
+    margin-top: 5px;
+    color: #cbd5e1;
+    font-size: 14px;
+}
 
-    .container {
-      max-width: 700px;
-      margin: 25px auto;
-      padding: 15px;
-    }
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 15px;
+}
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
 
-    .card h2 {
-      margin-bottom: 15px;
-    }
+.card h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
 
-    input, select, button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      border-radius: 10px;
-      border: 1px solid #d1d5db;
-      font-size: 16px;
-    }
+label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
 
-    button {
-      background: #2563eb;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    font-size: 16px;
+    background: white;
+}
 
-    button:hover {
-      background: #1d4ed8;
-    }
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
 
-    .service {
-      padding: 15px;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      margin-top: 10px;
-    }
+button {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 13px;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    .service strong {
-      display: block;
-      margin-bottom: 5px;
-    }
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
 
-    .price {
-      color: #2563eb;
-      font-weight: bold;
-    }
+.btn-primary:active {
+    background: #1d4ed8;
+}
 
-    .success {
-      display: none;
-      background: #dcfce7;
-      color: #166534;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
+.btn-delete {
+    background: #ef4444;
+    color: white;
+    margin-top: 10px;
+}
 
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #6b7280;
-    }
-  </style>
+.empty {
+    text-align: center;
+    color: #6b7280;
+    padding: 15px;
+}
+
+.booking {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 12px;
+}
+
+.booking h3 {
+    margin-bottom: 8px;
+}
+
+.booking p {
+    margin: 5px 0;
+    color: #4b5563;
+}
+
+.price {
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #16a34a;
+}
+
+.status {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-top: 8px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>🚗 AutoBook</h1>
-  <p>Онлайн-запись в автосервис</p>
+    <h1>🚗 AutoBook</h1>
+    <p>Управление автосервисом</p>
 </header>
 
 <div class="container">
 
-  <div class="card">
-    <h2>Записаться на обслуживание</h2>
+    <!-- Добавление записи -->
+    <div class="card">
+        <h2>➕ Новая запись</h2>
 
-    <input
-      type="text"
-      id="name"
-      placeholder="Ваше имя"
-    >
+        <label>Имя клиента</label>
+        <input type="text" id="clientName" placeholder="Например: Азиз">
 
-    <input
-      type="tel"
-      id="phone"
-      placeholder="Номер телефона"
-    >
+        <label>Телефон</label>
+        <input type="tel" id="phone" placeholder="+998 90 123 45 67">
 
-    <input
-      type="text"
-      id="car"
-      placeholder="Марка и модель автомобиля"
-    >
+        <label>Автомобиль</label>
+        <input type="text" id="car" placeholder="Например: Chevrolet Cobalt">
 
-    <select id="service">
-      <option value="">Выберите услугу</option>
-      <option value="Диагностика">Диагностика</option>
-      <option value="Замена масла">Замена масла</option>
-      <option value="Ремонт ходовой">Ремонт ходовой</option>
-      <option value="Ремонт двигателя">Ремонт двигателя</option>
-      <option value="Ремонт электрики">Ремонт электрики</option>
-      <option value="Кондиционер">Кондиционер</option>
-    </select>
+        <label>Госномер</label>
+        <input type="text" id="number" placeholder="01 A 123 BC">
 
-    <input
-      type="date"
-      id="date"
-    >
+        <label>Дата</label>
+        <input type="date" id="date">
 
-    <input
-      type="time"
-      id="time"
-    >
+        <label>Время</label>
+        <input type="time" id="time">
 
-    <button onclick="bookService()">
-      Записаться
-    </button>
+        <label>Вид работы</label>
+        <textarea id="work" placeholder="Например: замена масла и фильтров"></textarea>
 
-    <div class="success" id="success">
-      ✅ Запись успешно создана!
-    </div>
-  </div>
+        <label>Стоимость, сум</label>
+        <input type="number" id="price" placeholder="150000">
 
-
-  <div class="card">
-    <h2>Наши услуги</h2>
-
-    <div class="service">
-      <strong>🔧 Диагностика автомобиля</strong>
-      Проверка основных систем автомобиля
-      <div class="price">от 50 000 сум</div>
+        <button class="btn-primary" onclick="addBooking()">
+            Сохранить запись
+        </button>
     </div>
 
-    <div class="service">
-      <strong>🛢 Замена масла</strong>
-      Замена масла и фильтра
-      <div class="price">от 80 000 сум</div>
-    </div>
+    <!-- Записи -->
+    <div class="card">
+        <h2>📋 Записи клиентов</h2>
 
-    <div class="service">
-      <strong>🚘 Ходовая часть</strong>
-      Диагностика и ремонт подвески
-      <div class="price">от 100 000 сум</div>
+        <div id="bookings">
+            <div class="empty">
+                Пока нет записей
+            </div>
+        </div>
     </div>
-
-    <div class="service">
-      <strong>⚡ Электрика</strong>
-      Диагностика и ремонт электрооборудования
-      <div class="price">от 100 000 сум</div>
-    </div>
-
-  </div>
 
 </div>
 
-<footer>
-  AutoBook © 2026
-</footer>
-
-
 <script>
 
-function bookService() {
+let bookings = JSON.parse(localStorage.getItem("autobook_bookings")) || [];
 
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const car = document.getElementById("car").value;
-  const service = document.getElementById("service").value;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
-
-  if (!name || !phone || !car || !service || !date || !time) {
-    alert("Пожалуйста, заполните все поля");
-    return;
-  }
-
-  document.getElementById("success").style.display = "block";
-
-  console.log({
-    name: name,
-    phone: phone,
-    car: car,
-    service: service,
-    date: date,
-    time: time
-  });
+function saveBookings() {
+    localStorage.setItem(
+        "autobook_bookings",
+        JSON.stringify(bookings)
+    );
 }
+
+function addBooking() {
+
+    const clientName = document.getElementById("clientName").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const car = document.getElementById("car").value.trim();
+    const number = document.getElementById("number").value.trim();
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const work = document.getElementById("work").value.trim();
+    const price = document.getElementById("price").value;
+
+    if (!clientName || !car || !date || !time || !work) {
+        alert("Пожалуйста, заполните основные поля.");
+        return;
+    }
+
+    const booking = {
+        id: Date.now(),
+        clientName,
+        phone,
+        car,
+        number,
+        date,
+        time,
+        work,
+        price
+    };
+
+    bookings.push(booking);
+
+    saveBookings();
+    renderBookings();
+    clearForm();
+
+    alert("Запись успешно добавлена!");
+}
+
+function deleteBooking(id) {
+
+    if (!confirm("Удалить эту запись?")) {
+        return;
+    }
+
+    bookings = bookings.filter(function(booking) {
+        return booking.id !== id;
+    });
+
+    saveBookings();
+    renderBookings();
+}
+
+function clearForm() {
+
+    document.getElementById("clientName").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("car").value = "";
+    document.getElementById("number").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("time").value = "";
+    document.getElementById("work").value = "";
+    document.getElementById("price").value = "";
+}
+
+function formatPrice(price) {
+
+    if (!price) {
+        return "Не указана";
+    }
+
+    return Number(price).toLocaleString("ru-RU") + " сум";
+}
+
+function renderBookings() {
+
+    const container = document.getElementById("bookings");
+
+    if (bookings.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                Пока нет записей
+            </div>
+        `;
+
+        return;
+    }
+
+    bookings.sort(function(a, b) {
+
+        const dateA = new Date(a.date + "T" + a.time);
+        const dateB = new Date(b.date + "T" + b.time);
+
+        return dateA - dateB;
+    });
+
+    container.innerHTML = "";
+
+    bookings.forEach(function(booking) {
+
+        const item = document.createElement("div");
+
+        item.className = "booking";
+
+        item.innerHTML = `
+            <h3>🚗 ${escapeHTML(booking.car)}</h3>
+
+            <p>
+                👤 <strong>${escapeHTML(booking.clientName)}</strong>
+            </p>
+
+            <p>
+                📞 ${escapeHTML(booking.phone || "Телефон не указан")}
+            </p>
+
+            <p>
+                🔢 ${escapeHTML(booking.number || "Номер не указан")}
+            </p>
+
+            <p>
+                📅 ${formatDate(booking.date)}
+            </p>
+
+            <p>
+                🕐 ${escapeHTML(booking.time)}
+            </p>
+
+            <p>
+                🔧 ${escapeHTML(booking.work)}
+            </p>
+
+            <div class="price">
+                💰 ${formatPrice(booking.price)}
+            </div>
+
+            <div class="status">
+                Новая запись
+            </div>
+
+            <button
+                class="btn-delete"
+                onclick="deleteBooking(${booking.id})">
+                🗑 Удалить
+            </button>
+        `;
+
+        container.appendChild(item);
+    });
+}
+
+function formatDate(date) {
+
+    if (!date) {
+        return "";
+    }
+
+    const parts = date.split("-");
+
+    return parts[2] + "." + parts[1] + "." + parts[0];
+}
+
+function escapeHTML(text) {
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+renderBookings();
 
 </script>
 
