@@ -2,388 +2,291 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AutoBook</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="AutoBook — поиск автосервисов и запись на ремонт.">
+<title>AutoBook v0.2</title>
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #f4f6f8;
-    color: #222;
-}
-
-header {
-    background: #111827;
-    color: white;
-    padding: 18px;
-    text-align: center;
-}
-
-header h1 {
-    font-size: 25px;
-}
-
-header p {
-    margin-top: 5px;
-    color: #cbd5e1;
-    font-size: 14px;
-}
-
-.container {
-    max-width: 700px;
-    margin: auto;
-    padding: 15px;
-}
-
-.card {
-    background: white;
-    border-radius: 14px;
-    padding: 18px;
-    margin-bottom: 15px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-}
-
-.card h2 {
-    margin-bottom: 15px;
-    font-size: 20px;
-}
-
-label {
-    display: block;
-    margin-top: 12px;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 9px;
-    font-size: 16px;
-    background: white;
-}
-
-textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-
-button {
-    width: 100%;
-    border: none;
-    border-radius: 9px;
-    padding: 13px;
-    margin-top: 15px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.btn-primary {
-    background: #2563eb;
-    color: white;
-}
-
-.btn-primary:active {
-    background: #1d4ed8;
-}
-
-.btn-delete {
-    background: #ef4444;
-    color: white;
-    margin-top: 10px;
-}
-
-.empty {
-    text-align: center;
-    color: #6b7280;
-    padding: 15px;
-}
-
-.booking {
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 15px;
-    margin-top: 12px;
-}
-
-.booking h3 {
-    margin-bottom: 8px;
-}
-
-.booking p {
-    margin: 5px 0;
-    color: #4b5563;
-}
-
-.price {
-    font-size: 19px;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #16a34a;
-}
-
-.status {
-    display: inline-block;
-    background: #dbeafe;
-    color: #1d4ed8;
-    padding: 5px 9px;
-    border-radius: 20px;
-    font-size: 13px;
-    margin-top: 8px;
-}
+:root{--bg:#f3f6fb;--card:#fff;--ink:#172033;--muted:#64748b;--primary:#2563eb;--primary2:#1d4ed8;--line:#e2e8f0;--dark:#101827;--ok:#0f766e;--warn:#92400e;--radius:20px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:0 auto;min-height:100dvh;padding-bottom:32px}.top{background:var(--dark);color:white;padding:18px 18px 22px;border-radius:0 0 26px 26px}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800;letter-spacing:-.5px}.logo{width:42px;height:42px;display:grid;place-items:center;background:#2563eb;border-radius:14px;font-size:22px}.lang{max-width:150px;border:1px solid #465064;background:#202b3d;color:#fff;padding:10px 12px;border-radius:12px}.tagline{color:#cbd5e1;font-size:14px;margin:16px 0 0}.content{padding:18px}.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:0 5px 20px rgba(15,23,42,.035)}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(25px,6vw,34px);line-height:1.13;margin-bottom:10px;letter-spacing:-.8px}h2{font-size:21px;margin-bottom:8px}h3{font-size:16px;margin-bottom:6px}.muted{color:var(--muted)}.small{font-size:13px}.roles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.role{border:1.5px solid var(--line);background:#fff;border-radius:17px;padding:17px 13px;text-align:left;min-height:130px;color:var(--ink);transition:.15s}.role:active{transform:scale(.99)}.role .emoji{font-size:28px;display:block;margin-bottom:8px}.role strong{display:block;font-size:17px;margin-bottom:4px}.role span:last-child{font-size:13px;color:var(--muted)}.role.selected{border-color:var(--primary);background:#eff6ff;box-shadow:0 0 0 2px #dbeafe}.field{display:block;margin:15px 0 0}.field label{display:block;font-weight:650;font-size:14px;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;border:1px solid #cbd5e1;background:#fff;color:var(--ink);border-radius:12px;padding:13px 12px;min-height:48px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #dbeafe}.field textarea{min-height:84px;resize:vertical}.hint{font-size:12px;color:var(--muted);margin-top:5px}.btn{border:0;border-radius:13px;padding:14px 16px;font-weight:750;min-height:48px}.btn.primary{background:var(--primary);color:#fff}.btn.primary:active{background:var(--primary2)}.btn.secondary{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.btn.full{width:100%;margin-top:18px}.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}.hidden{display:none!important}.notice{padding:12px 14px;border-radius:12px;background:#eff6ff;color:#1e40af;font-size:13px;margin-top:14px}.notice.warn{background:#fff7ed;color:var(--warn)}.notice.ok{background:#ecfdf5;color:#065f46}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.pill{font-size:11px;font-weight:800;background:#dbeafe;color:#1d4ed8;border-radius:999px;padding:5px 9px;white-space:nowrap}.mapbox{min-height:180px;border-radius:16px;border:1px dashed #94a3b8;background:linear-gradient(135deg,#e8f1ff,#f8fafc);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#475569}.map-pin{font-size:32px;display:block;margin-bottom:6px}.footer{text-align:center;color:#94a3b8;font-size:12px;padding:8px 20px 24px}.divider{height:1px;background:var(--line);margin:18px 0}.listitem{display:flex;gap:10px;align-items:flex-start;margin:12px 0}.listitem b{display:block}.listitem .ico{font-size:21px}.top-actions{display:flex;gap:8px;align-items:center}.textbtn{background:transparent;border:1px solid #465064;color:#fff;border-radius:10px;padding:9px}.successmark{display:inline-grid;place-items:center;background:#dcfce7;color:#166534;width:48px;height:48px;border-radius:50%;font-size:24px;margin-bottom:12px}
+@media(min-width:600px){.content{padding:24px}.top{padding:22px 24px 26px}.panel{padding:24px}.role{padding:20px}.roles{gap:16px}}
+@media(max-width:380px){.content{padding:12px}.panel{padding:16px}.roles{gap:8px}.role{padding:12px 10px}.lang{max-width:125px}.brand{font-size:20px}}
 </style>
 </head>
-
 <body>
+<div class="app">
+  <header class="top">
+    <div class="topline">
+      <div class="brand"><div class="logo" aria-hidden="true">🚘</div><span>AutoBook</span></div>
+      <div class="top-actions">
+        <select class="lang" id="language" aria-label="Language">
+          <option value="ru">🇷🇺 Русский</option>
+          <option value="uz">🇺🇿 O‘zbekcha</option>
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文</option>
+        </select>
+      </div>
+    </div>
+    <p class="tagline" data-i18n="tagline">Автосервисы рядом. Запись без лишних звонков.</p>
+  </header>
 
-<header>
-    <h1>🚗 AutoBook</h1>
-    <p>Управление автосервисом</p>
-</header>
-
-<div class="container">
-
-    <!-- Добавление записи -->
-    <div class="card">
-        <h2>➕ Новая запись</h2>
-
-        <label>Имя клиента</label>
-        <input type="text" id="clientName" placeholder="Например: Азиз">
-
-        <label>Телефон</label>
-        <input type="tel" id="phone" placeholder="+998 90 123 45 67">
-
-        <label>Автомобиль</label>
-        <input type="text" id="car" placeholder="Например: Chevrolet Cobalt">
-
-        <label>Госномер</label>
-        <input type="text" id="number" placeholder="01 A 123 BC">
-
-        <label>Дата</label>
-        <input type="date" id="date">
-
-        <label>Время</label>
-        <input type="time" id="time">
-
-        <label>Вид работы</label>
-        <textarea id="work" placeholder="Например: замена масла и фильтров"></textarea>
-
-        <label>Стоимость, сум</label>
-        <input type="number" id="price" placeholder="150000">
-
-        <button class="btn-primary" onclick="addBooking()">
-            Сохранить запись
+  <main class="content">
+    <section class="panel" id="welcome">
+      <span class="pill" data-i18n="prototype">ПЕРВАЯ ВЕРСИЯ</span>
+      <h1 data-i18n="headline">Ваш автомобиль. Нужный мастер. Одна платформа.</h1>
+      <p class="muted" data-i18n="intro">Выберите роль, чтобы начать регистрацию в AutoBook.</p>
+      <h2 data-i18n="who">Кто вы?</h2>
+      <div class="roles" role="group" aria-label="Choose account type">
+        <button type="button" class="role" id="clientRole" aria-pressed="false">
+          <span class="emoji">🚗</span><strong data-i18n="client">Я клиент</strong><span data-i18n="clientDesc">Найти автосервис и записаться</span>
         </button>
-    </div>
+        <button type="button" class="role" id="masterRole" aria-pressed="false">
+          <span class="emoji">🧰</span><strong data-i18n="master">Я мастер</strong><span data-i18n="masterDesc">Работать с клиентами и заказами</span>
+        </button>
+      </div>
+      <div class="notice" data-i18n="privacyIntro">Телефон нужен для входа и связи. VIN не будет публично показываться другим пользователям.</div>
+    </section>
 
-    <!-- Записи -->
-    <div class="card">
-        <h2>📋 Записи клиентов</h2>
-
-        <div id="bookings">
-            <div class="empty">
-                Пока нет записей
-            </div>
+    <section class="panel hidden" id="registration">
+      <div class="sectionhead">
+        <div><h2 id="formTitle">Регистрация клиента</h2><p class="muted small" data-i18n="formIntro">Заполните минимум данных. Остальное можно добавить позже.</p></div>
+        <button type="button" class="btn ghost" id="backBtn" data-i18n="back">Назад</button>
+      </div>
+      <form id="signupForm">
+        <div class="field">
+          <label for="phone" data-i18n="phoneLabel">Номер телефона</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+998 90 123 45 67" required maxlength="24">
+          <div class="hint" data-i18n="phoneHint">Укажите код страны, например +998 для Узбекистана.</div>
         </div>
-    </div>
+        <div id="clientFields">
+          <div class="field">
+            <label for="vin" data-i18n="vinLabel">VIN автомобиля (необязательно)</label>
+            <input id="vin" name="vin" type="text" autocomplete="off" placeholder="17 символов, если известны" maxlength="24" autocapitalize="characters">
+            <div class="hint" data-i18n="vinHint">Можно пропустить сейчас и добавить автомобиль позже.</div>
+          </div>
+          <div class="field">
+            <label for="cityClient" data-i18n="cityLabel">Город / страна</label>
+            <input id="cityClient" name="city" autocomplete="address-level2" data-i18n-placeholder="cityPlaceholder" placeholder="Например, Ташкент, Узбекистан">
+          </div>
+        </div>
+        <div id="masterFields" class="hidden">
+          <div class="field">
+            <label for="serviceName" data-i18n="serviceLabel">Название автосервиса</label>
+            <input id="serviceName" name="serviceName" autocomplete="organization" data-i18n-placeholder="servicePlaceholder" placeholder="Название автосервиса">
+          </div>
+          <div class="field">
+            <label for="serviceAddress" data-i18n="addressLabel">Адрес автосервиса</label>
+            <input id="serviceAddress" name="serviceAddress" autocomplete="street-address" data-i18n-placeholder="addressPlaceholder" placeholder="Улица, город, страна">
+         service          <div class="row">
+            <div class="field">
+              <label for="country" data-i18n="countryLabel">Страна</label>
+              <select id="country" name="country">
+                <option value="UZ">🇺🇿 Uzbekistan</option>
+                <option value="CN">🇨🇳 China</option>
+                <option value="US">🇺🇸 United States</option>
+                <option value="GB">🇬🇧 United Kingdom</option>
+                <option value="OTHER">🌐 Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="specialty" data-i18n="specialtyLabel">Специализация</label>
+              <select id="specialty" name="specialty">
+                <option value="general" data-i18n="specGeneral">Общий ремонт</option>
+                <option value="diagnostics" data-i18n="specDiagnostics">Диагностика</option>
+                <option value="electric" data-i18n="specElectric">Автоэлектрик</option>
+                <option value="engine" data-i18n="specEngine">Двигатель</option>
+                <option value="body" data-i18n="specBody">Кузовной ремонт</option>
+                <option value="tires" data-i18n="specTires">Шины и колёса</option>
+                <option value="ev" data-i18n="specEV">Электромобили</option>
+                <option value="other" data-i18n="specOther">Другое</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="locationText" data-i18n="locationLabel">Местоположение (пока вручную)</label>
+            <input id="locationText" name="locationText" data-i18n-placeholder="locationPlaceholder" placeholder="Город или координаты">
+            <div class="hint" data-i18n="locationHint">Позже подключим карту и выбор точки с согласия пользователя.</div>
+          </div>
+        </div>
+        <button class="btn primary full" type="submit" data-i18n="continue">Продолжить</button>
+        <div class="notice warn" data-i18n="smsNotice">Демо-режим: SMS пока не отправляется. Реальное подтверждение подключается через сервер или провайдера авторизации.</div>
+        <div id="formMessage" class="notice hidden" role="status" aria-live="polite"></div>
+      </form>
+    </section>
 
+    <section class="panel hidden" id="nextSteps">
+      <div class="successmark">✓</div>
+      <h2 data-i18n="previewTitle">Предварительная регистрация готова</h2>
+      <p class="muted" data-i18n="previewText">Данные проверены в этом браузере. Аккаунт ещё не создан на сервере.</p>
+      <div id="summary"></div>
+      <div class="notice warn" data-i18n="notSavedNotice">Важно: это демонстрационный прототип. Данные не отправляются на сервер и не сохраняются в аккаунте. Не вводите чувствительные данные на общедоступном устройстве.</div>
+      <button class="btn secondary full" type="button" id="editBtn" data-i18n="edit">Изменить данные</button>
+      <button class="btn ghost full" type="button" id="restartBtn" data-i18n="restart">Вернуться на главный экран</button>
+    </section>
+
+    <section class="panel" id="mapSection">
+      <div class="sectionhead">
+        <div>
+          <h2 data-i18n="mapTitle">Автосервисы на карте</h2>
+          <p class="muted small" data-i18n="mapDesc">Сначала Узбекистан, архитектура — для разных стран.</p>
+        </div>
+        <span class="pill" data-i18n="planned">ПЛАН</span>
+      </div>
+      <div class="mapbox">
+        <div>
+          <span class="map-pin">📍</span>
+          <strong data-i18n="mapPlaceholderTitle">Карта будет подключена следующим этапом</strong>
+          <p class="small" data-i18n="mapPlaceholderText">Сравним Яндекс Карты и OpenStreetMap, затем подключим выбранного поставщика.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 data-i18n="roadmapTitle">Что появится дальше</h2>
+      <div class="listitem">
+        <span class="ico">📲</span>
+        <div>
+          <b data-i18n="roadSms">SMS-подтверждение телефона</b>
+          <span class="muted small" data-i18n="roadSmsDesc">Подключение реального провайдера и защита от злоупотреблений.</span>
+        </div>
+      </div>
+      <div class="listitem">
+        <span class="ico">🗺️</span>
+        <div>
+          <b data-i18n="roadMap">Карта и поиск автосервисов</b>
+          <span class="muted small" data-i18n="roadMapDesc">Координаты, поиск, фильтры и маршруты.</span>
+        </div>
+      </div>
+      <div class="listitem">
+        <span class="ico">☁️</span>
+        <div>
+          <b data-i18n="roadBackend">Сервер и база данных</b>
+          <span class="muted small" data-i18n="roadBackendDesc">Безопасные аккаунты, автомобили, сервисы и записи.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    AutoBook v0.2 · <span data-i18n="footerText">Демо-интерфейс · GitHub Pages</span>
+  </footer>
 </div>
-
 <script>
-
-let bookings = JSON.parse(localStorage.getItem("autobook_bookings")) || [];
-
-function saveBookings() {
-    localStorage.setItem(
-        "autobook_bookings",
-        JSON.stringify(bookings)
-    );
-}
-
-function addBooking() {
-
-    const clientName = document.getElementById("clientName").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const car = document.getElementById("car").value.trim();
-    const number = document.getElementById("number").value.trim();
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
-    const work = document.getElementById("work").value.trim();
-    const price = document.getElementById("price").value;
-
-    if (!clientName || !car || !date || !time || !work) {
-        alert("Пожалуйста, заполните основные поля.");
-        return;
-    }
-
-    const booking = {
-        id: Date.now(),
-        clientName,
-        phone,
-        car,
-        number,
-        date,
-        time,
-        work,
-        price
-    };
-
-    bookings.push(booking);
-
-    saveBookings();
-    renderBookings();
-    clearForm();
-
-    alert("Запись успешно добавлена!");
-}
-
-function deleteBooking(id) {
-
-    if (!confirm("Удалить эту запись?")) {
-        return;
-    }
-
-    bookings = bookings.filter(function(booking) {
-        return booking.id !== id;
-    });
-
-    saveBookings();
-    renderBookings();
-}
-
-function clearForm() {
-
-    document.getElementById("clientName").value = "";
-    document.getElementById("phone").value = "";
-    document.getElementById("car").value = "";
-    document.getElementById("number").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("time").value = "";
-    document.getElementById("work").value = "";
-    document.getElementById("price").value = "";
-}
-
-function formatPrice(price) {
-
-    if (!price) {
-        return "Не указана";
-    }
-
-    return Number(price).toLocaleString("ru-RU") + " сум";
-}
-
-function renderBookings() {
-
-    const container = document.getElementById("bookings");
-
-    if (bookings.length === 0) {
-
-        container.innerHTML = `
-            <div class="empty">
-                Пока нет записей
-            </div>
-        `;
-
-        return;
-    }
-
-    bookings.sort(function(a, b) {
-
-        const dateA = new Date(a.date + "T" + a.time);
-        const dateB = new Date(b.date + "T" + b.time);
-
-        return dateA - dateB;
-    });
-
-    container.innerHTML = "";
-
-    bookings.forEach(function(booking) {
-
-        const item = document.createElement("div");
-
-        item.className = "booking";
-
-        item.innerHTML = `
-            <h3>🚗 ${escapeHTML(booking.car)}</h3>
-
-            <p>
-                👤 <strong>${escapeHTML(booking.clientName)}</strong>
-            </p>
-
-            <p>
-                📞 ${escapeHTML(booking.phone || "Телефон не указан")}
-            </p>
-
-            <p>
-                🔢 ${escapeHTML(booking.number || "Номер не указан")}
-            </p>
-
-            <p>
-                📅 ${formatDate(booking.date)}
-            </p>
-
-            <p>
-                🕐 ${escapeHTML(booking.time)}
-            </p>
-
-            <p>
-                🔧 ${escapeHTML(booking.work)}
-            </p>
-
-            <div class="price">
-                💰 ${formatPrice(booking.price)}
-            </div>
-
-            <div class="status">
-                Новая запись
-            </div>
-
-            <button
-                class="btn-delete"
-                onclick="deleteBooking(${booking.id})">
-                🗑 Удалить
-            </button>
-        `;
-
-        container.appendChild(item);
-    });
-}
-
-function formatDate(date) {
-
-    if (!date) {
-        return "";
-    }
-
-    const parts = date.split("-");
-
-    return parts[2] + "." + parts[1] + "." + parts[0];
-}
-
-function escapeHTML(text) {
-
-    return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-renderBookings();
-
-</script>
-
-</body>
-</html>
+const translations = {
+ru:{
+tagline:"Автосервисы рядом. Запись без лишних звонков.",
+prototype:"ПЕРВАЯ ВЕРСИЯ",
+headline:"Ваш автомобиль. Нужный мастер. Одна платформа.",
+intro:"Выберите роль, чтобы начать регистрацию в AutoBook.",
+who:"Кто вы?",
+client:"Я клиент",
+clientDesc:"Найти автосервис и записаться",
+master:"Я мастер",
+masterDesc:"Работать с клиентами и заказами",
+privacyIntro:"Телефон нужен для входа и связи. VIN не будет публично показываться другим пользователям.",
+formClient:"Регистрация клиента",
+formMaster:"Регистрация мастера",
+formIntro:"Заполните минимум данных. Остальное можно добавить позже.",
+back:"Назад",
+phoneLabel:"Номер телефона",
+phoneHint:"Укажите код страны, например +998 для Узбекистана.",
+vinLabel:"VIN автомобиля (необязательно)",
+vinHint:"Можно пропустить сейчас и добавить автомобиль позже.",
+cityLabel:"Город / страна",
+cityPlaceholder:"Например, Ташкент, Узбекистан",
+serviceLabel:"Название автосервиса",
+servicePlaceholder:"Название автосервиса",
+addressLabel:"Адрес автосервиса",
+addressPlaceholder:"Улица, город, страна",
+countryLabel:"Страна",
+specialtyLabel:"Специализация",
+specGeneral:"Общий ремонт",
+specDiagnostics:"Диагностика",
+specElectric:"Автоэлектрик",
+specEngine:"Двигатель",
+specBody:"Кузовной ремонт",
+specTires:"Шины и колёса",
+specEV:"Электромобили",
+specOther:"Другое",
+locationLabel:"Местоположение (пока вручную)",
+locationPlaceholder:"Город или координаты",
+locationHint:"Позже подключим карту и выбор точки с согласия пользователя.",
+continue:"Продолжить",
+smsNotice:"Демо-режим: SMS пока не отправляется. Реальное подтверждение подключается через сервер или провайдера авторизации.",
+previewTitle:"Предварительная регистрация готова",
+previewText:"Данные проверены в этом браузере. Аккаунт ещё не создан на сервере.",
+notSavedNotice:"Важно: это демонстрационный прототип. Данные не отправляются на сервер и не сохраняются в аккаунте. Не вводите чувствительные данные на общедоступном устройстве.",
+edit:"Изменить данные",
+restart:"Вернуться на главный экран",
+mapTitle:"Автосервисы на карте",
+mapDesc:"Сначала Узбекистан, архитектура — для разных стран.",
+planned:"ПЛАН",
+mapPlaceholderTitle:"Карта будет подключена следующим этапом",
+mapPlaceholderText:"Сравним Яндекс Карты и OpenStreetMap, затем подключим выбранного поставщика.",
+roadmapTitle:"Что появится дальше",
+roadSms:"SMS-подтверждение телефона",
+roadSmsDesc:"Подключение реального провайдера и защита от злоупотреблений.",
+roadMap:"Кen:{
+tagline:"Nearby auto services. Book without unnecessary calls.",
+prototype:"FIRST VERSION",
+headline:"Your car. The right mechanic. One platform.",
+intro:"Choose your role to start registering with AutoBook.",
+who:"Who are you?",
+client:"I’m a customer",
+clientDesc:"Find an auto shop and book a visit",
+master:"I’m a mechanic",
+masterDesc:"Work with customers and service orders",
+privacyIntro:"Your phone is used for sign-in and contact. Your VIN will not be publicly shown to other users.",
+formClient:"Customer registration",
+formMaster:"Mechanic registration",
+formIntro:"Enter the essentials. You can add the rest later.",
+back:"Back",
+phoneLabel:"Phone number",
+phoneHint:"Include your country code, such as +998 for Uzbekistan.",
+vinLabel:"Vehicle VIN (optional)",
+vinHint:"You can skip this now and add your vehicle later.",
+cityLabel:"City / country",
+cityPlaceholder:"For example, Tashkent, Uzbekistan",
+serviceLabel:"Auto service name",
+servicePlaceholder:"Auto service name",
+addressLabel:"Auto service address",
+addressPlaceholder:"Street, city, country",
+countryLabel:"Country",
+specialtyLabel:"Specialty",
+specGeneral:"General repair",
+specDiagnostics:"Diagnostics",
+specElectric:"Auto electrician",
+specEngine:"Engine repair",
+specBody:"Bodywork",
+specTires:"Tires and wheels",
+specEV:"Electric vehicles",
+specOther:"Other",
+locationLabel:"Location (manual for now)",
+locationPlaceholder:"City or coordinates",
+locationHint:"Map and pin selection will be added later with user permission.",
+continue:"Continue",
+smsNotice:"Demo mode: no SMS is sent yet. Real verification must be connected through a server or authentication provider.",
+previewTitle:"Registration preview is ready",
+previewText:"The data was checked in this browser. No server account has been created.",
+notSavedNotice:"Important: this is a demo prototype. Data is not sent to a server or saved to an account. Avoid entering sensitive data on a public device.",
+edit:"Edit details",
+restart:"Return to home",
+mapTitle:"Auto services on the map",
+mapDesc:"Starting in Uzbekistan, with architecture designed for multiple countries.",
+planned:"PLANNED",
+mapPlaceholderTitle:"Map integration comes next",
+mapPlaceholderText:"We’ll compare Yandex Maps and OpenStreetMap, then connect a provider.",
+roadmapTitle:"Coming next",
+roadSms:"SMS phone verification",
+roadSmsDesc:"Connect a real provider and add abuse protection.",
+roadMap:"Map and auto service search",
+roadMapDesc:"Coordinates, search, filters, and routes.",
+roadBackend:"Server and database",
+roadBackendDesc:"Secure accounts, vehicles, services, and bookings.",
+footerText:"Demo interface · GitHub Pages",
+phoneRequired:"Enter your phone number.",
+serviceRequired:"Enter the auto service name and address.",
+clientRoleSummary:"Customer",
+masterRoleSummary:"Mechanic",
+phoneSummary:"Phone",
+vinSummary:"VIN",
+citySummary:"CityAddressAddress
