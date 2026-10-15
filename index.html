@@ -2,291 +2,790 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#101827">
-<meta name="description" content="AutoBook — поиск автосервисов и запись на ремонт.">
-<title>AutoBook v0.2</title>
+<meta name="description" content="AutoBook — электронная сервисная книжка автомобиля">
+<title>AutoBook</title>
+
 <style>
-:root{--bg:#f3f6fb;--card:#fff;--ink:#172033;--muted:#64748b;--primary:#2563eb;--primary2:#1d4ed8;--line:#e2e8f0;--dark:#101827;--ok:#0f766e;--warn:#92400e;--radius:20px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:0 auto;min-height:100dvh;padding-bottom:32px}.top{background:var(--dark);color:white;padding:18px 18px 22px;border-radius:0 0 26px 26px}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800;letter-spacing:-.5px}.logo{width:42px;height:42px;display:grid;place-items:center;background:#2563eb;border-radius:14px;font-size:22px}.lang{max-width:150px;border:1px solid #465064;background:#202b3d;color:#fff;padding:10px 12px;border-radius:12px}.tagline{color:#cbd5e1;font-size:14px;margin:16px 0 0}.content{padding:18px}.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:0 5px 20px rgba(15,23,42,.035)}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(25px,6vw,34px);line-height:1.13;margin-bottom:10px;letter-spacing:-.8px}h2{font-size:21px;margin-bottom:8px}h3{font-size:16px;margin-bottom:6px}.muted{color:var(--muted)}.small{font-size:13px}.roles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.role{border:1.5px solid var(--line);background:#fff;border-radius:17px;padding:17px 13px;text-align:left;min-height:130px;color:var(--ink);transition:.15s}.role:active{transform:scale(.99)}.role .emoji{font-size:28px;display:block;margin-bottom:8px}.role strong{display:block;font-size:17px;margin-bottom:4px}.role span:last-child{font-size:13px;color:var(--muted)}.role.selected{border-color:var(--primary);background:#eff6ff;box-shadow:0 0 0 2px #dbeafe}.field{display:block;margin:15px 0 0}.field label{display:block;font-weight:650;font-size:14px;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;border:1px solid #cbd5e1;background:#fff;color:var(--ink);border-radius:12px;padding:13px 12px;min-height:48px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #dbeafe}.field textarea{min-height:84px;resize:vertical}.hint{font-size:12px;color:var(--muted);margin-top:5px}.btn{border:0;border-radius:13px;padding:14px 16px;font-weight:750;min-height:48px}.btn.primary{background:var(--primary);color:#fff}.btn.primary:active{background:var(--primary2)}.btn.secondary{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.btn.full{width:100%;margin-top:18px}.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}.hidden{display:none!important}.notice{padding:12px 14px;border-radius:12px;background:#eff6ff;color:#1e40af;font-size:13px;margin-top:14px}.notice.warn{background:#fff7ed;color:var(--warn)}.notice.ok{background:#ecfdf5;color:#065f46}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.pill{font-size:11px;font-weight:800;background:#dbeafe;color:#1d4ed8;border-radius:999px;padding:5px 9px;white-space:nowrap}.mapbox{min-height:180px;border-radius:16px;border:1px dashed #94a3b8;background:linear-gradient(135deg,#e8f1ff,#f8fafc);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#475569}.map-pin{font-size:32px;display:block;margin-bottom:6px}.footer{text-align:center;color:#94a3b8;font-size:12px;padding:8px 20px 24px}.divider{height:1px;background:var(--line);margin:18px 0}.listitem{display:flex;gap:10px;align-items:flex-start;margin:12px 0}.listitem b{display:block}.listitem .ico{font-size:21px}.top-actions{display:flex;gap:8px;align-items:center}.textbtn{background:transparent;border:1px solid #465064;color:#fff;border-radius:10px;padding:9px}.successmark{display:inline-grid;place-items:center;background:#dcfce7;color:#166534;width:48px;height:48px;border-radius:50%;font-size:24px;margin-bottom:12px}
-@media(min-width:600px){.content{padding:24px}.top{padding:22px 24px 26px}.panel{padding:24px}.role{padding:20px}.roles{gap:16px}}
-@media(max-width:380px){.content{padding:12px}.panel{padding:16px}.roles{gap:8px}.role{padding:12px 10px}.lang{max-width:125px}.brand{font-size:20px}}
+:root {
+  --bg: #0b1220;
+  --panel: #121d30;
+  --line: #2b3a52;
+  --text: #f3f6fb;
+  --muted: #a8b5c9;
+  --blue: #4f8cff;
+  --green: #25c58a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at top, #172844, #0b1220 70%);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #0b1220;
+  border-bottom: 1px solid var(--line);
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: bold;
+  font-size: 21px;
+}
+
+.logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4f8cff, #25c58a);
+  display: grid;
+  place-items: center;
+  color: #07111f;
+  font-size: 22px;
+}
+
+select, input, textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0d1728;
+  color: white;
+  font-size: 16px;
+}
+
+.lang {
+  width: auto;
+  max-width: 125px;
+  padding: 9px;
+}
+
+main {
+  width: min(720px, 100%);
+  margin: auto;
+  padding: 20px 14px 40px;
+}
+
+h1 { font-size: 30px; margin-bottom: 10px; }
+h2 { font-size: 22px; margin-top: 0; }
+h3 { margin-bottom: 8px; }
+
+p { line-height: 1.5; }
+
+.muted { color: var(--muted); }
+
+.card {
+  background: linear-gradient(145deg, #152238, #101a2b);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  margin: 16px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.role {
+  min-height: 145px;
+  padding: 15px;
+  text-align: left;
+  background: #0d1728;
+  color: white;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.role strong {
+  display: block;
+  font-size: 19px;
+  margin: 8px 0;
+}
+
+.icon { font-size: 30px; }
+
+label {
+  display: block;
+  margin: 15px 0 7px;
+  font-weight: bold;
+}
+
+.btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 14px;
+  background: var(--blue);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn.green {
+  background: var(--green);
+  color: #062217;
+}
+
+.btn.secondary {
+  background: #24344d;
+  color: white;
+  border: 1px solid var(--line);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.actions .btn { flex: 1; }
+
+.hidden { display: none !important; }
+
+.note {
+  background: #332a18;
+  color: #ffe3a0;
+  border: 1px solid #765d2b;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.catgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.cat {
+  background: #0d1728;
+  color: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cat.selected {
+  border-color: var(--green);
+  background: #10372f;
+}
+
+.record {
+  background: #0d1728;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px;
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+}
+
+.smallbtn {
+  background: #19263b;
+  color: white;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px;
+}
+
+footer {
+  text-align: center;
+  color: #8290a5;
+  padding: 20px;
+  font-size: 12px;
+}
+
+@media(max-width:480px) {
+  main { padding: 16px 11px 35px; }
+  .card { padding: 15px; }
+  .actions { flex-direction: column; }
+  .catgrid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
+
 <body>
-<div class="app">
-  <header class="top">
-    <div class="topline">
-      <div class="brand"><div class="logo" aria-hidden="true">🚘</div><span>AutoBook</span></div>
-      <div class="top-actions">
-        <select class="lang" id="language" aria-label="Language">
-          <option value="ru">🇷🇺 Русский</option>
-          <option value="uz">🇺🇿 O‘zbekcha</option>
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 中文</option>
-        </select>
-      </div>
+
+<header>
+  <div class="brand">
+    <span class="logo">A</span>
+    <span>AutoBook</span>
+  </div>
+
+  <select id="language" class="lang" aria-label="Язык">
+    <option value="ru">Русский</option>
+    <option value="uz">O‘zbekcha</option>
+    <option value="en">English</option>
+    <option value="zh">中文</option>
+  </select>
+</header>
+
+<main>
+
+<section id="roleScreen">
+  <p style="color:#79a8ff;font-weight:bold">AUTOBOOK</p>
+  <h1 data-i="welcome">Добро пожаловать в AutoBook</h1>
+  <p class="muted" data-i="intro">
+    Электронная сервисная книжка автомобиля.
+  </p>
+
+  <div class="card">
+    <h2 data-i="chooseRole">Кто вы?</h2>
+    <p class="muted" data-i="chooseHint">
+      Сначала выберите роль.
+    </p>
+
+    <div class="grid">
+      <button class="role" id="clientRole">
+        <span class="icon">🚘</span>
+        <strong data-i="client">Клиент</strong>
+        <span class="muted" data-i="clientDesc">
+          История автомобиля
+        </span>
+      </button>
+
+      <button class="role" id="masterRole">
+        <span class="icon">🛠️</span>
+        <strong data-i="master">Мастер</strong>
+        <span class="muted" data-i="masterDesc">
+          Кабинет автосервиса
+        </span>
+      </button>
     </div>
-    <p class="tagline" data-i18n="tagline">Автосервисы рядом. Запись без лишних звонков.</p>
-  </header>
+  </div>
 
-  <main class="content">
-    <section class="panel" id="welcome">
-      <span class="pill" data-i18n="prototype">ПЕРВАЯ ВЕРСИЯ</span>
-      <h1 data-i18n="headline">Ваш автомобиль. Нужный мастер. Одна платформа.</h1>
-      <p class="muted" data-i18n="intro">Выберите роль, чтобы начать регистрацию в AutoBook.</p>
-      <h2 data-i18n="who">Кто вы?</h2>
-      <div class="roles" role="group" aria-label="Choose account type">
-        <button type="button" class="role" id="clientRole" aria-pressed="false">
-          <span class="emoji">🚗</span><strong data-i18n="client">Я клиент</strong><span data-i18n="clientDesc">Найти автосервис и записаться</span>
-        </button>
-        <button type="button" class="role" id="masterRole" aria-pressed="false">
-          <span class="emoji">🧰</span><strong data-i18n="master">Я мастер</strong><span data-i18n="masterDesc">Работать с клиентами и заказами</span>
-        </button>
-      </div>
-      <div class="notice" data-i18n="privacyIntro">Телефон нужен для входа и связи. VIN не будет публично показываться другим пользователям.</div>
-    </section>
+  <div class="note" data-i="demoNote">
+    Демо-версия. Данные хранятся на устройстве.
+    SMS и общая база пока не подключены.
+  </div>
+</section>
 
-    <section class="panel hidden" id="registration">
-      <div class="sectionhead">
-        <div><h2 id="formTitle">Регистрация клиента</h2><p class="muted small" data-i18n="formIntro">Заполните минимум данных. Остальное можно добавить позже.</p></div>
-        <button type="button" class="btn ghost" id="backBtn" data-i18n="back">Назад</button>
-      </div>
-      <form id="signupForm">
-        <div class="field">
-          <label for="phone" data-i18n="phoneLabel">Номер телефона</label>
-          <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+998 90 123 45 67" required maxlength="24">
-          <div class="hint" data-i18n="phoneHint">Укажите код страны, например +998 для Узбекистана.</div>
-        </div>
-        <div id="clientFields">
-          <div class="field">
-            <label for="vin" data-i18n="vinLabel">VIN автомобиля (необязательно)</label>
-            <input id="vin" name="vin" type="text" autocomplete="off" placeholder="17 символов, если известны" maxlength="24" autocapitalize="characters">
-            <div class="hint" data-i18n="vinHint">Можно пропустить сейчас и добавить автомобиль позже.</div>
-          </div>
-          <div class="field">
-            <label for="cityClient" data-i18n="cityLabel">Город / страна</label>
-            <input id="cityClient" name="city" autocomplete="address-level2" data-i18n-placeholder="cityPlaceholder" placeholder="Например, Ташкент, Узбекистан">
-          </div>
-        </div>
-        <div id="masterFields" class="hidden">
-          <div class="field">
-            <label for="serviceName" data-i18n="serviceLabel">Название автосервиса</label>
-            <input id="serviceName" name="serviceName" autocomplete="organization" data-i18n-placeholder="servicePlaceholder" placeholder="Название автосервиса">
-          </div>
-          <div class="field">
-            <label for="serviceAddress" data-i18n="addressLabel">Адрес автосервиса</label>
-            <input id="serviceAddress" name="serviceAddress" autocomplete="street-address" data-i18n-placeholder="addressPlaceholder" placeholder="Улица, город, страна">
-         service          <div class="row">
-            <div class="field">
-              <label for="country" data-i18n="countryLabel">Страна</label>
-              <select id="country" name="country">
-                <option value="UZ">🇺🇿 Uzbekistan</option>
-                <option value="CN">🇨🇳 China</option>
-                <option value="US">🇺🇸 United States</option>
-                <option value="GB">🇬🇧 United Kingdom</option>
-                <option value="OTHER">🌐 Other</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="specialty" data-i18n="specialtyLabel">Специализация</label>
-              <select id="specialty" name="specialty">
-                <option value="general" data-i18n="specGeneral">Общий ремонт</option>
-                <option value="diagnostics" data-i18n="specDiagnostics">Диагностика</option>
-                <option value="electric" data-i18n="specElectric">Автоэлектрик</option>
-                <option value="engine" data-i18n="specEngine">Двигатель</option>
-                <option value="body" data-i18n="specBody">Кузовной ремонт</option>
-                <option value="tires" data-i18n="specTires">Шины и колёса</option>
-                <option value="ev" data-i18n="specEV">Электромобили</option>
-                <option value="other" data-i18n="specOther">Другое</option>
-              </select>
-            </div>
-          </div>
-          <div class="field">
-            <label for="locationText" data-i18n="locationLabel">Местоположение (пока вручную)</label>
-            <input id="locationText" name="locationText" data-i18n-placeholder="locationPlaceholder" placeholder="Город или координаты">
-            <div class="hint" data-i18n="locationHint">Позже подключим карту и выбор точки с согласия пользователя.</div>
-          </div>
-        </div>
-        <button class="btn primary full" type="submit" data-i18n="continue">Продолжить</button>
-        <div class="notice warn" data-i18n="smsNotice">Демо-режим: SMS пока не отправляется. Реальное подтверждение подключается через сервер или провайдера авторизации.</div>
-        <div id="formMessage" class="notice hidden" role="status" aria-live="polite"></div>
-      </form>
-    </section>
+<section id="clientScreen" class="hidden">
+  <h1 data-i="clientReg">Регистрация клиента</h1>
+  <p class="muted" data-i="clientExplain">
+    Введите телефон и VIN автомобиля.
+  </p>
 
-    <section class="panel hidden" id="nextSteps">
-      <div class="successmark">✓</div>
-      <h2 data-i18n="previewTitle">Предварительная регистрация готова</h2>
-      <p class="muted" data-i18n="previewText">Данные проверены в этом браузере. Аккаунт ещё не создан на сервере.</p>
-      <div id="summary"></div>
-      <div class="notice warn" data-i18n="notSavedNotice">Важно: это демонстрационный прототип. Данные не отправляются на сервер и не сохраняются в аккаунте. Не вводите чувствительные данные на общедоступном устройстве.</div>
-      <button class="btn secondary full" type="button" id="editBtn" data-i18n="edit">Изменить данные</button>
-      <button class="btn ghost full" type="button" id="restartBtn" data-i18n="restart">Вернуться на главный экран</button>
-    </section>
+  <form id="clientForm" class="card">
+    <label for="clientPhone" data-i="phone">Номер телефона</label>
+    <input id="clientPhone" type="tel"
+      placeholder="+998 90 123 45 67" required>
 
-    <section class="panel" id="mapSection">
-      <div class="sectionhead">
-        <div>
-          <h2 data-i18n="mapTitle">Автосервисы на карте</h2>
-          <p class="muted small" data-i18n="mapDesc">Сначала Узбекистан, архитектура — для разных стран.</p>
-        </div>
-        <span class="pill" data-i18n="planned">ПЛАН</span>
-      </div>
-      <div class="mapbox">
-        <div>
-          <span class="map-pin">📍</span>
-          <strong data-i18n="mapPlaceholderTitle">Карта будет подключена следующим этапом</strong>
-          <p class="small" data-i18n="mapPlaceholderText">Сравним Яндекс Карты и OpenStreetMap, затем подключим выбранного поставщика.</p>
-        </div>
-      </div>
-    </section>
+    <label for="vin" data-i="vin">VIN автомобиля</label>
+    <input id="vin" maxlength="17"
+      placeholder="17 символов" required>
 
-    <section class="panel">
-      <h2 data-i18n="roadmapTitle">Что появится дальше</h2>
-      <div class="listitem">
-        <span class="ico">📲</span>
-        <div>
-          <b data-i18n="roadSms">SMS-подтверждение телефона</b>
-          <span class="muted small" data-i18n="roadSmsDesc">Подключение реального провайдера и защита от злоупотреблений.</span>
-        </div>
+    <p class="muted" data-i="vinHint">
+      VIN состоит из 17 символов.
+    </p>
+
+    <div class="actions">
+      <button type="button" class="btn secondary"
+        id="backClient" data-i="back">Назад</button>
+      <button type="submit" class="btn green"
+        data-i="continue">Продолжить</button>
+    </div>
+  </form>
+</section>
+
+<section id="masterScreen" class="hidden">
+  <h1 data-i="masterReg">Регистрация мастера</h1>
+  <p class="muted" data-i="masterExplain">
+    Заполните сведения об автосервисе.
+  </p>
+
+  <form id="masterForm" class="card">
+    <label for="masterPhone" data-i="phone">Номер телефона</label>
+    <input id="masterPhone" type="tel"
+      placeholder="+998 90 123 45 67" required>
+
+    <label for="shopName" data-i="shopName">
+      Название автосервиса
+    </label>
+    <input id="shopName" required>
+
+    <label for="shopLocation" data-i="location">
+      Адрес автосервиса
+    </label>
+    <input id="shopLocation" required>
+
+    <label for="specialty" data-i="specialty">
+      Специализация
+    </label>
+
+    <select id="specialty">
+      <option value="to" data-i="catTO">ТО: масло и фильтры</option>
+      <option value="suspension" data-i="catSusp">Ходовая часть</option>
+      <option value="interior" data-i="catInterior">Салон</option>
+      <option value="engine" data-i="catEngine">Двигатель и коробка</option>
+      <option value="electric" data-i="catElectric">Электрика</option>
+      <option value="all" data-i="all">Все виды работ</option>
+    </select>
+
+    <div class="actions">
+      <button type="button" class="btn secondary"
+        id="backMaster" data-i="back">Назад</button>
+      <button type="submit" class="btn green"
+        data-i="finishReg">Завершить регистрацию</button>
+    </div>
+  </form>
+</section>
+
+<section id="clientApp" class="hidden">
+  <button class="smallbtn" id="switchRole"
+    data-i="changeRole">Сменить роль</button>
+
+  <h1 data-i="myCar">Мой автомобиль</h1>
+  <p class="muted" id="clientSummary"></p>
+
+  <div class="card">
+    <h2 data-i="addRecord">Добавить обслуживание</h2>
+
+    <form id="recordForm">
+      <label data-i="category">Категория работ</label>
+
+      <div class="catgrid" id="categoryButtons">
+        <button type="button" class="cat selected"
+          data-cat="to" data-i="catTO">ТО: масло и фильтры</button>
+        <button type="button" class="cat"
+          data-cat="suspension" data-i="catSusp">Ходовая часть</button>
+        <button type="button" class="cat"
+          data-cat="interior" data-i="catInterior">Салон</button>
+        <button type="button" class="cat"
+          data-cat="engine" data-i="catEngine">Двигатель и коробка</button>
+        <button type="button" class="cat"
+          data-cat="electric" data-i="catElectric">Электрика</button>
       </div>
-      <div class="listitem">
-        <span class="ico">🗺️</span>
-        <div>
-          <b data-i18n="roadMap">Карта и поиск автосервисов</b>
-          <span class="muted small" data-i18n="roadMapDesc">Координаты, поиск, фильтры и маршруты.</span>
-        </div>
+
+      <label for="recordDate" data-i="date">Дата работ</label>
+      <input id="recordDate" type="date" required>
+
+      <label for="mileage" data-i="mileage">Пробег, км</label>
+      <input id="mileage" type="number" min="0"
+        placeholder="85000" required>
+
+      <label for="shop" data-i="performedAt">
+        Автосервис
+      </label>
+      <input id="shop" required>
+
+      <label for="work" data-i="workDone">
+        Какие работы выполнены
+      </label>
+      <textarea id="work" rows="3" required></textarea>
+
+      <div class="actions">
+        <button class="btn green" type="submit"
+          data-i="saveRecord">Сохранить запись</button>
       </div>
-      <div class="listitem">
-        <span class="ico">☁️</span>
-        <div>
-          <b data-i18n="roadBackend">Сервер и база данных</b>
-          <span class="muted small" data-i18n="roadBackendDesc">Безопасные аккаунты, автомобили, сервисы и записи.</span>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer class="footer">
-    AutoBook v0.2 · <span data-i18n="footerText">Демо-интерфейс · GitHub Pages</span>
-  </footer>
-</div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2 data-i="history">История обслуживания</h2>
+    <button class="smallbtn" id="exportBtn"
+      data-i="export">Экспорт</button>
+    <div id="records"></div>
+    <p id="emptyRecords" class="muted"
+      data-i="noRecords">
+      Пока записей нет.
+    </p>
+  </div>
+</section>
+
+<section id="masterApp" class="hidden">
+  <button class="smallbtn" id="switchRole2"
+    data-i="changeRole">Сменить роль</button>
+
+  <h1 data-i="masterCabinet">Кабинет автосервиса</h1>
+  <div class="card">
+    <h2 id="masterTitle">AutoBook</h2>
+    <p id="masterSummary" class="muted"></p>
+    <p class="muted" data-i="masterNext">
+      Профиль сохранён на этом устройстве.
+      Для общей работы потребуется серверная база данных.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>AutoBook · <span data-i="footer">Сервисная история автомобиля</span></footer>
+
 <script>
 const translations = {
-ru:{
-tagline:"Автосервисы рядом. Запись без лишних звонков.",
-prototype:"ПЕРВАЯ ВЕРСИЯ",
-headline:"Ваш автомобиль. Нужный мастер. Одна платформа.",
-intro:"Выберите роль, чтобы начать регистрацию в AutoBook.",
-who:"Кто вы?",
-client:"Я клиент",
-clientDesc:"Найти автосервис и записаться",
-master:"Я мастер",
-masterDesc:"Работать с клиентами и заказами",
-privacyIntro:"Телефон нужен для входа и связи. VIN не будет публично показываться другим пользователям.",
-formClient:"Регистрация клиента",
-formMaster:"Регистрация мастера",
-formIntro:"Заполните минимум данных. Остальное можно добавить позже.",
-back:"Назад",
-phoneLabel:"Номер телефона",
-phoneHint:"Укажите код страны, например +998 для Узбекистана.",
-vinLabel:"VIN автомобиля (необязательно)",
-vinHint:"Можно пропустить сейчас и добавить автомобиль позже.",
-cityLabel:"Город / страна",
-cityPlaceholder:"Например, Ташкент, Узбекистан",
-serviceLabel:"Название автосервиса",
-servicePlaceholder:"Название автосервиса",
-addressLabel:"Адрес автосервиса",
-addressPlaceholder:"Улица, город, страна",
-countryLabel:"Страна",
-specialtyLabel:"Специализация",
-specGeneral:"Общий ремонт",
-specDiagnostics:"Диагностика",
-specElectric:"Автоэлектрик",
-specEngine:"Двигатель",
-specBody:"Кузовной ремонт",
-specTires:"Шины и колёса",
-specEV:"Электромобили",
-specOther:"Другое",
-locationLabel:"Местоположение (пока вручную)",
-locationPlaceholder:"Город или координаты",
-locationHint:"Позже подключим карту и выбор точки с согласия пользователя.",
-continue:"Продолжить",
-smsNotice:"Демо-режим: SMS пока не отправляется. Реальное подтверждение подключается через сервер или провайдера авторизации.",
-previewTitle:"Предварительная регистрация готова",
-previewText:"Данные проверены в этом браузере. Аккаунт ещё не создан на сервере.",
-notSavedNotice:"Важно: это демонстрационный прототип. Данные не отправляются на сервер и не сохраняются в аккаунте. Не вводите чувствительные данные на общедоступном устройстве.",
-edit:"Изменить данные",
-restart:"Вернуться на главный экран",
-mapTitle:"Автосервисы на карте",
-mapDesc:"Сначала Узбекистан, архитектура — для разных стран.",
-planned:"ПЛАН",
-mapPlaceholderTitle:"Карта будет подключена следующим этапом",
-mapPlaceholderText:"Сравним Яндекс Карты и OpenStreetMap, затем подключим выбранного поставщика.",
-roadmapTitle:"Что появится дальше",
-roadSms:"SMS-подтверждение телефона",
-roadSmsDesc:"Подключение реального провайдера и защита от злоупотреблений.",
-roadMap:"Кen:{
-tagline:"Nearby auto services. Book without unnecessary calls.",
-prototype:"FIRST VERSION",
-headline:"Your car. The right mechanic. One platform.",
-intro:"Choose your role to start registering with AutoBook.",
-who:"Who are you?",
-client:"I’m a customer",
-clientDesc:"Find an auto shop and book a visit",
-master:"I’m a mechanic",
-masterDesc:"Work with customers and service orders",
-privacyIntro:"Your phone is used for sign-in and contact. Your VIN will not be publicly shown to other users.",
-formClient:"Customer registration",
-formMaster:"Mechanic registration",
-formIntro:"Enter the essentials. You can add the rest later.",
-back:"Back",
-phoneLabel:"Phone number",
-phoneHint:"Include your country code, such as +998 for Uzbekistan.",
-vinLabel:"Vehicle VIN (optional)",
-vinHint:"You can skip this now and add your vehicle later.",
-cityLabel:"City / country",
-cityPlaceholder:"For example, Tashkent, Uzbekistan",
-serviceLabel:"Auto service name",
-servicePlaceholder:"Auto service name",
-addressLabel:"Auto service address",
-addressPlaceholder:"Street, city, country",
-countryLabel:"Country",
-specialtyLabel:"Specialty",
-specGeneral:"General repair",
-specDiagnostics:"Diagnostics",
-specElectric:"Auto electrician",
-specEngine:"Engine repair",
-specBody:"Bodywork",
-specTires:"Tires and wheels",
-specEV:"Electric vehicles",
-specOther:"Other",
-locationLabel:"Location (manual for now)",
-locationPlaceholder:"City or coordinates",
-locationHint:"Map and pin selection will be added later with user permission.",
-continue:"Continue",
-smsNotice:"Demo mode: no SMS is sent yet. Real verification must be connected through a server or authentication provider.",
-previewTitle:"Registration preview is ready",
-previewText:"The data was checked in this browser. No server account has been created.",
-notSavedNotice:"Important: this is a demo prototype. Data is not sent to a server or saved to an account. Avoid entering sensitive data on a public device.",
-edit:"Edit details",
-restart:"Return to home",
-mapTitle:"Auto services on the map",
-mapDesc:"Starting in Uzbekistan, with architecture designed for multiple countries.",
-planned:"PLANNED",
-mapPlaceholderTitle:"Map integration comes next",
-mapPlaceholderText:"We’ll compare Yandex Maps and OpenStreetMap, then connect a provider.",
-roadmapTitle:"Coming next",
-roadSms:"SMS phone verification",
-roadSmsDesc:"Connect a real provider and add abuse protection.",
-roadMap:"Map and auto service search",
-roadMapDesc:"Coordinates, search, filters, and routes.",
-roadBackend:"Server and database",
-roadBackendDesc:"Secure accounts, vehicles, services, and bookings.",
-footerText:"Demo interface · GitHub Pages",
-phoneRequired:"Enter your phone number.",
-serviceRequired:"Enter the auto service name and address.",
-clientRoleSummary:"Customer",
-masterRoleSummary:"Mechanic",
-phoneSummary:"Phone",
-vinSummary:"VIN",
-citySummary:"CityAddressAddress
+ru: {
+welcome:"Добро пожаловать в AutoBook",
+intro:"Электронная сервисная книжка автомобиля.",
+chooseRole:"Кто вы?",chooseHint:"Сначала выберите роль.",
+client:"Клиент",master:"Мастер",
+clientDesc:"История автомобиля",masterDesc:"Кабинет автосервиса",
+demoNote:"Демо-версия. Данные хранятся на устройстве. SMS и общая база пока не подключены.",
+clientReg:"Регистрация клиента",clientExplain:"Введите телефон и VIN автомобиля.",
+masterReg:"Регистрация мастера",masterExplain:"Заполните сведения об автосервисе.",
+phone:"Номер телефона",vin:"VIN автомобиля",
+vinHint:"VIN состоит из 17 символов.",back:"Назад",
+continue:"Продолжить",finishReg:"Завершить регистрацию",
+shopName:"Название автосервиса",location:"Адрес автосервиса",
+specialty:"Специализация",catTO:"ТО: масло и фильтры",
+catSusp:"Ходовая часть",catInterior:"Салон",
+catEngine:"Двигатель и коробка",catElectric:"Электрика",
+all:"Все виды работ",changeRole:"Сменить роль",
+myCar:"Мой автомобиль",addRecord:"Добавить обслуживание",
+category:"Категория работ",date:"Дата работ",mileage:"Пробег, км",
+performedAt:"Автосервис",workDone:"Какие работы выполнены",
+saveRecord:"Сохранить запись",history:"История обслуживания",
+export:"Экспорт",noRecords:"Пока записей нет.",
+masterCabinet:"Кабинет автосервиса",
+masterNext:"Профиль сохранён на этом устройстве. Для общей работы потребуется серверная база данных.",
+footer:"Сервисная история автомобиля",
+vinError:"Введите корректный VIN из 17 символов.",
+saved:"Запись сохранена.",phoneError:"Введите номер телефона.",
+confirmDelete:"Удалить запись?",delete:"Удалить",
+dateShort:"Дата",mileageShort:"Пробег",workLabel:"Работы",
+exportName:"autobook-history.json",phoneLabel:"Телефон",
+vinLabel:"VIN",registered:"Регистрация завершена."
+},
+uz: {
+welcome:"AutoBook’ga xush kelibsiz",
+intro:"Avtomobilning elektron servis daftarchasi.",
+chooseRole:"Siz kimsiz?",chooseHint:"Avval rolni tanlang.",
+client:"Mijoz",master:"Usta",
+clientDesc:"Avtomobil tarixi",masterDesc:"Avtoservis kabineti",
+demoNote:"Demo. Ma’lumotlar qurilmada saqlanadi. SMS va umumiy baza ulanmagan.",
+clientReg:"Mijozni ro‘yxatdan o‘tkazish",clientExplain:"Telefon va VIN kiriting.",
+masterReg:"Ustani ro‘yxatdan o‘tkazish",masterExplain:"Avtoservis ma’lumotlarini kiriting.",
+phone:"Telefon raqami",vin:"Avtomobil VIN kodi",
+vinHint:"VIN 17 ta belgidan iborat.",back:"Orqaga",
+continue:"Davom etish",finishReg:"Ro‘yxatdan o‘tishni tugatish",
+shopName:"Avtoservis nomi",location:"Manzil",
+specialty:"Yo‘nalish",catTO:"TXK: moy va filtrlar",
+catSusp:"Yurish qismi",catInterior:"Salon",
+catEngine:"Dvigatel va uzatmalar qutisi",catElectric:"Elektrika",
+all:"Barcha ishlar",changeRole:"Rolni almashtirish",
+myCar:"Mening avtomobilim",addRecord:"Xizmat qo‘shish",
+category:"Ish toifasi",date:"Ish sanasi",mileage:"Yurgan masofa, km",
+performedAt:"Avtoservis",workDone:"Bajarilgan ishlar",
+saveRecord:"Saqlash",history:"Xizmat tarixi",export:"Eksport",
+noRecords:"Hozircha yozuv yo‘q.",masterCabinet:"Avtoservis kabineti",
+masterNext:"Profil qurilmada saqlandi. Umumiy ishlash uchun server bazasi kerak.",
+footer:"Avtomobil xizmat tarixi",vinError:"17 belgili VIN kiriting.",
+saved:"Yozuv saqlandi.",phoneError:"Telefon raqamini kiriting.",
+confirmDelete:"Yozuv o‘chirilsinmi?",delete:"O‘chirish",
+dateShort:"Sana",mileageShort:"Masofa",workLabel:"Ishlar",
+exportName:"autobook-history.json",phoneLabel:"Telefon",
+vinLabel:"VIN",registered:"Ro‘yxat yakunlandi."
+},
+en: {
+welcome:"Welcome to AutoBook",
+intro:"Your vehicle’s digital service book.",
+chooseRole:"Who are you?",chooseHint:"Choose your role first.",
+client:"Client",master:"Master",
+clientDesc:"Vehicle history",masterDesc:"Auto shop dashboard",
+demoNote:"Demo. Data is stored on this device. SMS and shared storage are not connected.",
+clientReg:"Client registration",clientExplain:"Enter your phone and vehicle VIN.",
+masterReg:"Master registration",masterExplain:"Enter your auto shop details.",
+phone:"Phone number",vin:"Vehicle VIN",
+vinHint:"VIN has 17 characters.",back:"Back",
+continue:"Continue",finishReg:"Finish registration",
+shopName:"Auto shop name",location:"Address",
+specialty:"Specialization",catTO:"Maintenance: oil and filters",
+catSusp:"Suspension",catInterior:"Interior",
+catEngine:"Engine and gearbox",catElectric:"Electrical",
+all:"All services",changeRole:"Change role",
+myCar:"My vehicle",addRecord:"Add service record",
+category:"Work category",date:"Service date",mileage:"Mileage, km",
+performedAt:"Auto shop",workDone:"Work performed",
+saveRecord:"Save record",history:"Service history",
+export:"Export",noRecords:"No records yet.",
+masterCabinet:"Auto shop dashboard",
+masterNext:"Profile saved on this device. Shared work requires a server database.",
+footer:"Vehicle service history",vinError:"Enter a valid 17-character VIN.",
+saved:"Record saved.",phoneError:"Enter a phone number.",
+confirmDelete:"Delete this record?",delete:"Delete",
+dateShort:"Date",mileageShort:"Mileage",workLabel:"Work",
+exportName:"autobook-history.json",phoneLabel:"Phone",
+vinLabel:"VIN",registered:"Registration complete."
+},
+zh: {
+welcome:"欢迎使用 AutoBook",
+intro:"汽车电子维修保养手册。",
+chooseRole:"您是哪种用户？",chooseHint:"请先选择角色。",
+client:"车主",master:"维修师傅",
+clientDesc:"车辆维修记录",masterDesc:"维修店工作台",
+demoNote:"演示版本。数据保存在本设备。短信和共享数据库尚未接入。",
+clientReg:"车主注册",clientExplain:"请输入手机号和车辆 VIN。",
+masterReg:"维修师傅注册",masterExplain:"请输入维修店信息。",
+phone:"手机号码",vin:"车辆 VIN",
+vinHint:"VIN 由 17 个字符组成。",back:"返回",
+continue:"继续",finishReg:"完成注册",
+shopName:"维修店名称",location:"地址",
+specialty:"服务类型",catTO:"保养：机油和滤芯",
+catSusp:"底盘悬挂",catInterior:"内饰",
+catEngine:"发动机和变速箱",catElectric:"汽车电气",
+all:"全部服务",changeRole:"切换角色",
+myCar:"我的车辆",addRecord:"添加维修记录",
+category:"工作类别",date:"维修日期",mileage:"里程，公里",
+performedAt:"维修店",workDone:"完成的工作",
+saveRecord:"保存记录",history:"维修历史",
+export:"导出",noRecords:"暂无记录。",
+masterCabinet:"维修店工作台",
+masterNext:"资料已保存在本设备。共享服务需要服务器数据库。",
+footer:"车辆维修历史",vinError:"请输入 17 位有效 VIN。",
+saved:"记录已保存。",phoneError:"请输入手机号。",
+confirmDelete:"删除此记录？",delete:"删除",
+dateShort:"日期",mileageShort:"里程",workLabel:"工作内容",
+exportName:"autobook-history.json",phoneLabel:"电话",
+vinLabel:"VIN",registered:"注册完成。"
+}
+};
+
+const $ = id => document.getElementById(id);
+let language = localStorage.getItem("ab_language") || "ru";
+let selectedCategory = "to";
+let client = null;
+let master = null;
+let records = [];
+
+try { client = JSON.parse(localStorage.getItem("ab_client") || "null"); } catch(e) {}
+try { master = JSON.parse(localStorage.getItem("ab_master") || "null"); } catch(e) {}
+try { records = JSON.parse(localStorage.getItem("ab_records") || "[]"); } catch(e) {}
+
+function t(key) {
+  return translations[language][key] || translations.ru[key] || key;
+}
+
+function applyLanguage() {
+  document.documentElement.lang = language;
+  $("language").value = language;
+  document.querySelectorAll("[data-i]").forEach(el => {
+    const key = el.dataset.i;
+    if (t(key)) el.textContent = t(key);
+  });
+  renderRecords();
+}
+
+$("language").addEventListener("change", function() {
+  language = this.value;
+  localStorage.setItem("ab_language", language);
+  applyLanguage();
+});
+
+function showScreen(id) {
+  ["roleScreen","clientScreen","masterScreen","clientApp","masterApp"]
+    .forEach(screen => $(screen).classList.toggle("hidden", screen !== id));
+  window.scrollTo(0,0);
+}
+
+$("clientRole").onclick = () => showScreen("clientScreen");
+$("masterRole").onclick = () => showScreen("masterScreen");
+$("backClient").onclick = () => showScreen("roleScreen");
+$("backMaster").onclick = () => showScreen("roleScreen");
+$("switchRole").onclick = () => showScreen("roleScreen");
+$("switchRole2").onclick = () => showScreen("roleScreen");
+
+$("clientForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const phone = $("clientPhone").value.trim();
+  const vin = $("vin").value.trim().toUpperCase();
+
+  if (!phone) {
+    alert(t("phoneError"));
+    return;
+  }
+
+  if (!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) {
+    alert(t("vinError"));
+    return;
+  }
+
+  client = { phone, vin };
+  localStorage.setItem("ab_client", JSON.stringify(client));
+
+  $("clientSummary").textContent =
+    t("phoneLabel") + ": " + phone + " · " + t("vinLabel") + ": " + vin;
+
+  showScreen("clientApp");
+  renderRecords();
+});
+
+$("masterForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  master = {
+    phone: $("masterPhone").value.trim(),
+    shopName: $("shopName").value.trim(),
+    location: $("shopLocation").value.trim(),
+    specialty: $("specialty").value
+  };
+
+  localStorage.setItem("ab_master", JSON.stringify(master));
+  $("masterTitle").textContent = master.shopName;
+  $("masterSummary").textContent =
+    master.phone + " · " + master.location;
+
+  showScreen("masterApp");
+});
+
+document.querySelectorAll(".cat").forEach(button => {
+  button.addEventListener("click", function() {
+    selectedCategory = this.dataset.cat;
+    document.querySelectorAll(".cat").forEach(b =>
+      b.classList.toggle("selected", b === this)
+    );
+  });
+});
+
+$("recordDate").value = new Date().toISOString().slice(0,10);
+
+$("recordForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  if (!client) return;
+
+  const categoryKeys = {
+    to:"catTO",
+    suspension:"catSusp",
+    interior:"catInterior",
+    engine:"catEngine",
+    electric:"catElectric"
+  };
+
+  records.unshift({
+    id: Date.now(),
+    vin: client.vin,
+    category: selectedCategory,
+    categoryKey: categoryKeys[selectedCategory],
+    date: $("recordDate").value,
+    mileage: Number($("mileage").value),
+    shop: $("shop").value.trim(),
+    work: $("work").value.trim()
+  });
+
+  localStorage.setItem("ab_records", JSON.stringify(records));
+
+  $("mileage").value = "";
+  $("shop").value = "";
+  $("work").value = "";
+
+  renderRecords();
+  alert(t("saved"));
+});
+
+function renderRecords() {
+  const host = $("records");
+  if (!host) return;
+
+  host.innerHTML = "";
+
+  const visible = client
+    ? records.filter(record => record.vin === client.vin)
+    : [];
+
+  $("emptyRecords").classList.toggle("hidden", visible.length > 0);
+
+  visible.forEach(record => {
+    const box = document.createElement("article");
+    box.className = "record";
+
+    const title = document.createElement("h3");
+    title.textContent = t(record.categoryKey || "category");
+
+    const meta = document.createElement("p");
+    meta.textContent =
+      t("dateShort") + ": " + record.date +
+      " · " + t("mileageShort") + ": " + record.mileage + " km";
+
+    const shop = document.createElement("p");
+    shop.textContent = "🏁 " + record.shop;
+
+    const work = document.createElement("p");
+    work.textContent = t("workLabel") + ": " + record.work;
+
+    const remove = document.createElement("button");
+    remove.className = "smallbtn";
+    remove.textContent = t("delete");
+
+    remove.onclick = () => {
+      if (!confirm(t("confirmDelete"))) return;
+
+      records = records.filter(r => r.id !== record.id);
+      localStorage.setItem("ab_records", JSON.stringify(records));
+      renderRecords();
+    };
+
+    box.append(title, meta, shop, work, remove);
+    host.appendChild(box);
+  });
+}
+
+$("exportBtn").onclick = function() {
+  const data = {
+    app: "AutoBook",
+    exportedAt: new Date().toISOString(),
+    client,
+    records: client
+      ? records.filter(r => r.vin === client.vin)
+      : []
+  };
+
+  const blob = new Blob(
+    [JSON.stringify(data, null, 2)],
+    { type: "application/json" }
+  );
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = t("exportName");
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+applyLanguage();
+
+if (client) {
+  $("clientPhone").value = client.phone;
+  $("vin").value = client.vin;
+  $("clientSummary").textContent =
+    t("phoneLabel") + ": " + client.phone +
+    " · " + t("vinLabel") + ": " + client.vin;
+  showScreen("clientApp");
+  renderRecords();
+} else if (master) {
+  $("masterPhone").value = master.phone;
+  $("shopName").value = master.shopName;
+  $("shopLocation").value = master.location;
+  $("specialty").value = master.specialty;
+  $("masterTitle").textContent = master.shopName;
+  $("masterSummary").textContent = master.phone + " · " + master.location;
+  showScreen("masterApp");
+} else {
+  showScreen("roleScreen");
+}
+</script>
+
+</body>
+</html>
